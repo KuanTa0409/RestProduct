@@ -7,7 +7,7 @@
 	</head>
 	<body style="padding: 15px">
 		<!-- 商品表單 -->
-		<form th:action="@{/rest/${index}}" class="pure-form" method="post">
+		<form th:action="@{/rest/{id}(id=${index})}" class="pure-form" method="post">
 			<fieldset>
 				<legend>Product Form Update</legend>
 				index: <span th:text="${index+1}"></span><p/>
