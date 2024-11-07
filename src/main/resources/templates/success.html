@@ -8,6 +8,10 @@
 	<body style="padding: 15px">
 		<form th:action="@{/rest/}" method="get" class="pure-form">
 			<legend>Success !!!</legend>
+			<div th:if="${message != null}" 
+     			 class="message-box"
+     		     th:text="${message}">
+			</div>
 			<div th:if="${product != null}">
             	<div class="pure-g">
                 	<div class="pure-u-1">

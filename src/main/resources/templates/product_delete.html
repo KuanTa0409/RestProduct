@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+		<title>Product Delete</title>
+	</head>
+	<body style="padding: 15px">
+		<!-- 商品表單 -->
+		<form th:action="@{/rest/{id}(id=${index})}" class="pure-form" method="post">
+			<fieldset>
+				<legend>Product Form Delete</legend>
+				index: <span th:text="${index+1}"></span><p/>
+				<input type="hidden" name="_method" id="_method" value="Delete">
+				商品名稱: <span th:text="${product.name}"     ></span><p/>
+				商品數量: <span th:text="${product.quantity}" ></span><p/>
+				商品價格: <span th:text="${product.price}"    ></span><p/>
+				<button type="submit" class="pure-button pure-button-primary">刪除</button>
+			</fieldset>    
+		</form>
+	</body>
+</html>
