@@ -57,7 +57,7 @@
            					   class="pure-button pure-button-primary">修改</a>
 						</td>
 						<td>
-							<a th:href="@{/rest/{id}(id=${status.index})}" 
+							<a th:href="@{/rest/{id}(id=${status.index}, action='delete')}" 
            					   class="pure-button pure-button-primary">刪除</a>
 						</td>
 				</tbody>

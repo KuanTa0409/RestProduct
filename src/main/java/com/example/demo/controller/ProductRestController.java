@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Product;
@@ -36,11 +37,14 @@ public class ProductRestController {
 
 	// 查詢單一商品
 	// "/{index}/?action=delete" 就導到 product_delete.html
-	@GetMapping("/{index}")
-	public String get(Model model, @PathVariable("index") int index) {
+	@GetMapping("/{index}")  //    @RequestParam("action") String action 來判斷              
+	public String get(Model model, @PathVariable("index") int index, @RequestParam(value = "action", required = false) String action) {
 		Product product = products.get(index);
 		model.addAttribute("index", index);
 		model.addAttribute("product", product);
+		if(action !=null && action.equals("delete")) {
+			return "product_delete";
+		}
 		return "product_update";
 	}
 
@@ -79,16 +83,19 @@ public class ProductRestController {
 	// 刪除商品
 	@DeleteMapping("/{index}")
 	public String delete(@PathVariable("index") int index,Product product, RedirectAttributes attr) {
-		// 驗證
-		if (product.getName() == null || product.getName().trim().length() == 0 || product.getQuantity() == null || product.getPrice() == null) {
-			attr.addFlashAttribute("message", "刪除資料錯誤");
-			return "redirect:error"; // 會重導至 /product/rest/error
-		}
-		// 進行刪除程序...
-		product = products.remove(index); //會回傳 欲刪除物件
-		attr.addFlashAttribute(product);
-		attr.addFlashAttribute("message", "刪除成功");
-		return "redirect:deleteOK"; // 會跳至 url="/product/rest/deleteOK"
+		try {
+	        // 回傳 欲刪除的商品
+	        Product removedProduct = products.remove(index);
+	        attr.addFlashAttribute("product", removedProduct);
+	        attr.addFlashAttribute("message", "刪除成功");
+	        return "redirect:deleteOK";
+	    } catch (IndexOutOfBoundsException e) {
+	        attr.addFlashAttribute("message", "刪除資料錯誤：索引不存在");
+	        return "redirect:error";
+	    } catch (Exception e) {
+	        attr.addFlashAttribute("message", "刪除資料錯誤：" + e.getMessage());
+	        return "redirect:error";
+	    }
 	}
 
 	// 新增或修改商品-成功
