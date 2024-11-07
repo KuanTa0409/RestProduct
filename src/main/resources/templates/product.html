@@ -34,7 +34,8 @@
 					</thead>
 					<tbody>
 						<!-- 使用 status.index (從0開始) 或 status.count (從1開始) -->
-						<tr th:each="status, product : ${products}">
+						<!-- Thymeleaf 的 th:each 語法中，第一個參數是迭代項目，第二個參數（可選）是狀態變數 -->
+						<tr th:each="product, status : ${products}">
 							<td th:text=${status.count}></td>
 							<td th:text="${product.name}"></td>
 							<td th:text="${product.quantity}"></td>
@@ -51,11 +52,5 @@
 				</table>
 			</fieldset>
 		</form>
-		
-		
-		
-		
-		
-		
 	</body>
 </html>
