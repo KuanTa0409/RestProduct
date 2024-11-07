@@ -6,6 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,13 +32,22 @@ public class ProductRestController {
 		return "product";   // 將 物件products 傳至 前端product.html的屬性"products"
 	}
 	
+	// 查詢單一商品
+	@GetMapping("/{index}")
+	public String get(Model model, @PathVariable("index") int index) {
+		Product product = products.get(index);
+		model.addAttribute("index", index);
+		model.addAttribute("product", product);
+		return "product_update";
+	}
+	
 	// 新增商品
 	@PostMapping("/")                  // 重導參數(只會出現一次 重新整理後，東西會消失)
 	public String add(Product product, RedirectAttributes attr) { // 接 在表單新增的product
 		// 驗證
 		if(product.getName() == null || product.getQuantity() == null || product.getPrice() == null) {
 			attr.addFlashAttribute("message", "新增資料錯誤");
-			return "redirect:error";
+			return "redirect:error";  //會重導至 /product/rest/error
 		}
 		// 進行新增程序...
 		products.add(product);

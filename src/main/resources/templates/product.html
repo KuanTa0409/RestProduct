@@ -41,12 +41,13 @@
 							<td th:text="${product.quantity}"></td>
 							<td th:text="${product.price}"></td>
 							<td>
-								<button type="button" 
-								        class="pure-button pure-button-primary">編輯</button>
-							</td>
+                        		<!-- 使用 Thymeleaf 的 URL 語法 -->
+                        		<a th:href="@{/rest/{id}(id=${status.index})}" 
+                           		   class="pure-button pure-button-primary">編輯</a>
+                    		</td>
 							<td>
-								<button type="button" 
-								        class="pure-button pure-button-primary">刪除</button>
+								<a th:href="@{/rest/{id}(id=${status.index})}" 
+                           		   class="pure-button pure-button-primary">刪除</a>
 							</td>
 					</tbody>
 				</table>

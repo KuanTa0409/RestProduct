@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+		<title>Product Update</title>
+	</head>
+	<body style="padding: 15px">
+		<!-- 商品表單 -->
+		<form th:action="@{/rest/${index}}" class="pure-form" method="post">
+			<fieldset>
+				<legend>Product Form Update</legend>
+				index: <span th:text="${index+1}"></span><p/>
+				<input type="hidden" name="_method" id="_method" value="PUT">
+				商品名稱: <input th:value="${product.name}"     type="text"   placeholder="請輸入商品名稱" id="name"     name="name"><p/>
+				商品數量: <input th:value="${product.quantity}" type="number" placeholder="請輸入商品數量" id="quantity" name="quantity"><p/>
+				商品價格: <input th:value="${product.price}"    type="number" placeholder="請輸入商品價格" id="price"    name="price"><p/>
+				<button type="submit" class="pure-button pure-button-primary">修改</button>
+			</fieldset>    
+		</form>
+	</body>
+</html>
