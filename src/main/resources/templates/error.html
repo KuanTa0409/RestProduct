@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+		<title>Error</title>
+	</head>
+	<body style="padding: 15px">
+		<form th:action="@{/rest/}" method="get">
+			錯誤訊息: <span th:text="${message}"></span><p/>
+			<button type="submit" class="pure-button pure-button-primary">Back</button>
+		</form>
+	</body>
+</html>

@@ -32,12 +32,17 @@ public class ProductRestController {
 	}
 	
 	// 新增商品
-	@PostMapping("/")                  // 重導參數
+	@PostMapping("/")                  // 重導參數(只會出現一次 重新整理後，東西會消失)
 	public String add(Product product, RedirectAttributes attr) { // 接 在表單新增的product
+		// 驗證
+		if(product.getName() == null || product.getQuantity() == null || product.getPrice() == null) {
+			attr.addFlashAttribute("message", "新增資料錯誤");
+			return "redirect:error";
+		}
 		// 進行新增程序...
 		products.add(product);
 		// 將 product 物件資料傳遞給 /addOK，再傳給 success.html 顯示, 可以防止二次 submit
-		attr.addFlashAttribute("product", product); //按 重新整理，也不要二次輸入
+		attr.addFlashAttribute("product", product); //按 重新整理，也不會二次輸入
 		return "redirect:addOK"; //會跳至 url="/product/rest/addOK"
 	}
 	// 新增商品-成功
@@ -46,6 +51,11 @@ public class ProductRestController {
 		return "success";
 	}
 	
+	// 新增商品-失敗
+	@GetMapping(value = "/error")
+	public String error() {
+		return "error";
+		}
 	
 	
 	
