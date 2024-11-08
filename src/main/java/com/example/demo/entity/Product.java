@@ -1,9 +1,9 @@
 package com.example.demo.entity;
 
 public class Product {
-	private String name;
-	private Integer quantity;
-	private Double price;
+	private String name;      // 商品名稱
+	private Integer quantity; // 商品數量
+	private Double price;     // 商品價格
 	
 	public Product() {
 		

@@ -36,8 +36,8 @@ public class ProductRestController {
 	}
 
 	// 查詢單一商品
-	// "/{index}/?action=delete" 就導到 product_delete.html
-	@GetMapping("/{index}")  //    @RequestParam("action") String action 來判斷              
+	// "/{index}?action=delete" 就導到 product_delete.html
+	@GetMapping("/{index}")                                    //    @RequestParam("action") String action 來判斷              
 	public String get(Model model, @PathVariable("index") int index, @RequestParam(value = "action", required = false) String action) {
 		Product product = products.get(index);
 		model.addAttribute("index", index);
@@ -49,7 +49,7 @@ public class ProductRestController {
 	}
 
 	// 新增商品
-	@PostMapping("/") // 重導參數(只會出現一次 重新整理後，東西會消失)
+	@PostMapping("/")                  // 重導參數(只會出現一次 重新整理後，東西會消失)
 	public String add(Product product, RedirectAttributes attr) { // 接 在表單新增的product
 		// 驗證
 		if (product.getName() == null || product.getName().trim().length() == 0 || product.getQuantity() == null || product.getPrice() == null) {
